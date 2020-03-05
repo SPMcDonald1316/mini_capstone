@@ -8,4 +8,14 @@ class Api::ProductsController < ApplicationController
     @product = Product.first
     render 'first.json.jb'
   end
+
+  def second_product
+    @product = Product.find_by(id: 2)
+    render 'second.json.jb'
+  end
+
+  def third_product
+    @product = Product.find_by(id: 3)
+    render 'third.json.jb'
+  end
 end
