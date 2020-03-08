@@ -28,7 +28,6 @@ class Api::ProductsController < ApplicationController
       image_url: params[:image_url] || @product.image_url,
       description: params[:description] || @product.description
     )
-    @product.save
     render 'show.json.jb'
   end
 
