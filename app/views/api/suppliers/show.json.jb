@@ -1,0 +1,1 @@
+render 'api/suppliers/supplier', supplier: @supplier

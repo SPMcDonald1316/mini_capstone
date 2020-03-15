@@ -1,9 +1,9 @@
 class Product < ApplicationRecord
-  validates :name, presence: true, uniqueness: true, length: {maximum: 40}
+  validates :name, presence: true, uniqueness: true, length: {maximum: 100}
   validates :price, presence: true, numericality: {greater_than: 0}
   validates :description, length: {in: 10..500}
   def is_discounted?
-    price < 10
+    price < 100
   end
 
   def tax
@@ -13,5 +13,9 @@ class Product < ApplicationRecord
 
   def total
     price + tax
+  end
+
+  def supplier
+    Supplier.find_by(id: supplier_id)
   end
 end
