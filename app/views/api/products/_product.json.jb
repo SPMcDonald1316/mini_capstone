@@ -4,7 +4,7 @@
   price: product.price,
   tax: product.tax,
   total: product.total,
-  image_url: product.image_url,
+  url: product.url,
   description: product.description,
   discounted: product.is_discounted?,
   supplier: product.supplier
