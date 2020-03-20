@@ -4,6 +4,9 @@ class Api::ProductsController < ApplicationController
   def index
     if params[:search]
       @products = Product.where("name LIKE ?", "%#{params[:search]}%")
+    elsif params[:category]
+      category = Category.find_by(name: params[:category])
+      @products = category.products
     else
       @products = Product.all
     end
