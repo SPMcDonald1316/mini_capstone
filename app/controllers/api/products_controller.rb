@@ -1,4 +1,6 @@
 class Api::ProductsController < ApplicationController
+  before_action :authenticate_admin, only: [:create, :update, :destroy]
+
   def index
     if params[:search]
       @products = Product.where("name LIKE ?", "%#{params[:search]}%")
@@ -16,11 +18,7 @@ class Api::ProductsController < ApplicationController
       @products = @products.order(:id)
     end
     
-    if current_user
-      render 'index.json.jb'
-    else
-      @products = []
-    end
+    render 'index.json.jb'
   end
 
   def show
@@ -32,8 +30,8 @@ class Api::ProductsController < ApplicationController
     @product = Product.new(
       name: params[:name],
       price: params[:price],
-      url: params[:url],
-      description: params[:description]
+      description: params[:description],
+      supplier_id: params[:supplier_id]
     )
     if @product.save
       render 'show.json.jb'
