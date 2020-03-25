@@ -2,26 +2,30 @@ class Api::OrdersController < ApplicationController
   before_action :authenticate_user
   
   def create
-    product = Product.find(params[:product_id])
-    subtotal = product.price * params[:quantity].to_i
-    tax_rate = 0.09
-    tax = product.price * tax_rate
-    total = subtotal + tax
-
-  
+    @cart = current_user.carted_products.where(status: 'carted')
+    subtotal = 0
+    tax = 0
+    total = 0
+    @cart.each do |product|
+      subtotal += product.product.price * product.quantity
+      tax += product.product.tax * product.quantity
+      total += product.product.total * product.quantity
+    end
+    
     @order = Order.new(
       user_id: current_user.id,
-      product_id: params[:product_id],
-      quantity: params[:quantity],
       subtotal: subtotal,
       tax: tax,
       total: total
     )
 
     if @order.save
+      @cart.each do |product|
+        product.update(order_id: @order.id, status: 'purchased')
+      end
       render 'show.json.jb'
     else
-      @order = []
+      render json: {errors: @order.errors.full_messages}
     end
   end
 

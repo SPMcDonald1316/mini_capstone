@@ -1,0 +1,8 @@
+<% @products.each do |product|%>
+  <p><%= product.name%></p>
+  <p><%= product.price%></p>
+  <p><%= product.description%></p>
+  <% product.images.each do |image|%>
+    <img src="<%= image.url %>" width="200" height="200">
+  <%end%>
+<%end%>
