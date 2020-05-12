@@ -1,0 +1,13 @@
+<h1>Add a new product</h1>
+<br>
+<form action="/products" method="post">
+  <p>Name: <input type="text" name="name"></p>
+  <p>Price: <input type="text" name="price"></p>
+  <p>Description: <input type="text" name="description"></p>
+  <p>Supplier: <select id="suppliers" name="supplier_id">
+                  <% @suppliers.each do |supplier| %>
+                    <option value="<%= supplier.id%>"><%= supplier.name%></option>
+                  <%end%>    
+               </select></p>
+  <input type="submit" value="Add new product">
+</form>

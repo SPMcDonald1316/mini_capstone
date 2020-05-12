@@ -1,6 +1,15 @@
+
+<h1>Here is an individual product</h1>
 <p><%= @product.name%></p>
 <p><%= @product.price%></p>
 <p><%= @product.description%></p>
 <% @product.images.each do |image|%>
     <img src="<%= image.url %>" width="200" height="200">
   <%end%>
+
+  <a href="/products/<%=@product.id%>">Edit Product</a>
+
+  <form action="/products/<%=@product.id%>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Product">
+  </form>
